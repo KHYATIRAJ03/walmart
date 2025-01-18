@@ -1,0 +1,50 @@
+// Data Processor UML Class Diagram
+digraph {
+	Processor [label="
+Processor
+- mode: ModeIdentifier
+- database: DatabaseIdentifier
++ configure(mode: ModeIdentifier, database: DatabaseIdentifier)
++ process(datapoint: Datapoint)
+"]
+	Database [label="
+Database (Interface)
++ connect()
++ insert(datapoint: Datapoint)
++ validate(datapoint: Datapoint)
+"]
+	Postgres [label="
+Postgres
++ connect()
++ insert(datapoint: Datapoint)
++ validate(datapoint: Datapoint)
+"]
+	Redis [label="
+Redis
++ connect()
++ insert(datapoint: Datapoint)
++ validate(datapoint: Datapoint)
+"]
+	Elastic [label="
+Elastic
++ connect()
++ insert(datapoint: Datapoint)
++ validate(datapoint: Datapoint)
+"]
+	ModeIdentifier [label="
+ModeIdentifier (Enum)
++ DUMP
++ PASSTHROUGH
++ VALIDATE
+"]
+	Datapoint [label="
+Datapoint
+- data: any
+"]
+	Processor -> Database [label=Uses]
+	Processor -> ModeIdentifier [label=Has]
+	Processor -> Datapoint [label=Processes]
+	Database -> Postgres [label=Implements]
+	Database -> Redis [label=Implements]
+	Database -> Elastic [label=Implements]
+}
